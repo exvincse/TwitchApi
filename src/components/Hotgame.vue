@@ -3,7 +3,8 @@
       <div class="topgame d-flex">
         <div class="col-2">
           <div class="card game h-100">
-            <a href="#" class="card-title gamename">所有遊戲</a>
+            <router-link class="card-title gamename"
+                    to="/game">所有遊戲</router-link>
           </div>
         </div>
         <div class="col-2"

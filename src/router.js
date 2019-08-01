@@ -12,6 +12,10 @@ export default new Router({
     },
     {
       path: '/game',
+      component: () => import('./components/Totalgame'),
+    },
+    {
+      path: '/selectgame',
       component: () => import('./components/Channel'),
     },
   ],

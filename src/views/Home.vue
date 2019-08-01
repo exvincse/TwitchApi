@@ -49,12 +49,13 @@ export default {
   },
   methods: {
     getdata(startdata = 0) {
+      this.$store.dispatch('Loading', true);
       const limit = 25;
       const api = `${process.env.VUE_APP_APIPATH}/kraken/streams/?client_id=${process.env.VUE_APP_CUSTOMPATH}&game=${this.name}&limit=${limit}&offset=${startdata}`;
       this.$http.get(api).then((response) => {
         this.total = response.data._total;
         this.channel = response.data.streams;
-        console.log(this.channel);
+        this.$store.dispatch('Loading', false);
       });
     },
     getname(get) {

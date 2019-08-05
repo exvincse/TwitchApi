@@ -40,7 +40,7 @@
 
 <script>
 export default {
-  props: ['ary','name'],
+  props: ['ary', 'backone', 'gamelimit'],
   data() {
     return {
       nowpage: 1,
@@ -53,33 +53,33 @@ export default {
     this.Datadefault();
   },
   watch: {
-    name() {
+    backone() {
       this.nowpage = 1;
-    }
+    },
   },
   computed: {
     TotalPage() {
-      return Math.ceil(this.ary / this.limit);
+      return Math.ceil(this.ary / (this.gamelimit || this.limit));
     },
     //  limitPage,顯示分頁限制為5頁
     limitPage() {
       const PageRange = [];
-      const totalpage = Math.ceil(this.ary / this.limit);
+      const totalpage = Math.ceil(this.ary / (this.gamelimit || this.limit));
       if (totalpage <= 0) return false;
       if (this.nowpage <= 3) {
         let page = 5;
         if (totalpage <= 5) {
           page = totalpage;
         }
-        for (let i = 1; i <= page; i ++) {
+        for (let i = 1; i <= page; i += 1) {
           PageRange.push(i);
         }
       } else if (this.nowpage >= 3 && this.nowpage < totalpage - 2) {
-        for (let i = this.nowpage - 2; i <= this.nowpage + 2; i ++) {
+        for (let i = this.nowpage - 2; i <= this.nowpage + 2; i += 1) {
           PageRange.push(i);
         }
       } else if (this.nowpage >= totalpage - 2) {
-        for (let i = this.nowpage - 2; i <= totalpage; i++) {
+        for (let i = this.nowpage - 2; i <= totalpage; i += 1) {
           PageRange.push(i);
         }
       }
@@ -88,14 +88,16 @@ export default {
   },
   methods: {
     Datadefault() {
+      if (this.ary === 0) return false;
       this.TotalLength = this.ary;
-      this.totalpage = Math.ceil(this.ary / this.limit);
+      this.totalpage = Math.ceil(this.ary / (this.gamelimit || this.limit));
       this.pagedata(1);
+      return null;
     },
     //  當前頁資料
     pagedata(page) {
       this.nowpage = page;
-      const end = (page - 1) * this.limit;
+      const end = (page - 1) * (this.gamelimit || this.limit);
       this.$emit('getdata', end);
     },
   },

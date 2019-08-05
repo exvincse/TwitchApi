@@ -2,6 +2,23 @@
   <div>
     <div class="container">
       <h1 class="text-center">{{this.$route.query.name}}</h1>
+        <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
+          <label class="btn btn-outline-secondary a active"
+          @click.prevent="lange=''">
+            <input type="radio" name="options" id="option1"
+            >全部頻道
+          </label>
+          <label class="btn btn-outline-secondary a"
+          @click.prevent="lange='zh-TW'">
+            <input type="radio" name="options" id="option2"
+            >中文頻道
+          </label>
+          <label class="btn btn-outline-secondary a"
+          @click.prevent="lange='en'">
+            <input type="radio" name="options" id="option3"
+            >英文頻道
+          </label>
+        </div>
       <div class="row">
         <div class="col-3 mb-3"
           v-for="item in gamedata" :key="item._id">
@@ -17,6 +34,7 @@
         </div>
       </div>
       <pages :ary="total"
+             :backone="backone"
              @getdata="getdata"></pages>
     </div>
   </div>
@@ -31,17 +49,24 @@ export default {
   data() {
     return {
       gamedata: [],
+      lange: '',
+      backone: false,
       total: 0,
     };
   },
   created() {
     this.getdata();
   },
+  watch: {
+    lange() {
+      this.getdata();
+      this.backone = !this.backone;
+    }
+  },
   methods: {
     getdata(startdata = 0) {
       this.$store.dispatch('Loading', true);
-      const limit = 25;
-      const api = `${process.env.VUE_APP_APIPATH}/kraken/streams/?client_id=${process.env.VUE_APP_CUSTOMPATH}&game=${this.$route.query.name}&limit=${limit}&offset=${startdata}`;
+      const api = `${process.env.VUE_APP_APIPATH}/kraken/streams/?client_id=${process.env.VUE_APP_CUSTOMPATH}&language=${this.lange}&game=${this.$route.query.name}&offset=${startdata}`;
       this.$http.get(api).then((response) => {
         this.total = response.data._total;
         this.gamedata = response.data.streams;

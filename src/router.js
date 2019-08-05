@@ -7,16 +7,25 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('./views/Home'),
-    },
-    {
-      path: '/game',
-      component: () => import('./components/Totalgame'),
-    },
-    {
-      path: '/selectgame',
-      component: () => import('./components/Channel'),
+      component: () => import('./views/Indexmodel'),
+      children: [
+        {
+          path: '',
+          component: () => import('./views/Home'),
+        },
+        {
+          path: '/master',
+          component: () => import('./components/Livemaster'),
+        },
+        {
+          path: '/game',
+          component: () => import('./components/Totalgame'),
+        },
+        {
+          path: '/game/selectgame',
+          component: () => import('./components/Channel'),
+        },
+      ],
     },
   ],
 });

@@ -1,11 +1,10 @@
 <template>
     <div>
-      <div class="container">
-					<h1 class="text-center">所有遊戲</h1>
+      <div class="container text-white mt-4">
           <div class="row">
 							<div class="col-12">
 								<div class="row justify-content-center">
-									<div class="col-6">
+									<div class="col-lg-6">
 										<div class="input-group mb-3">
 											<input type="text" class="form-control" placeholder="請輸入遊戲名稱" 
 												v-model="gamename"
@@ -18,12 +17,12 @@
 									</div>
 								</div>
 							</div>
-            <div class="col-3 mb-3"
+            <div class="col-lg-3 col-6 mb-3"
 								v-for="item in totalgame" :key="item._id" v-if="!selectdata.length && selectnull">
-							<div class="card game">
+							<div class="card game bg-l-gray">
 									<img :src="item.game.box.template" class="card-img-top" alt="">
 									<div class="card-body">
-									<h6 class="card-title gamename">{{item.game.name}}</h6>
+									<h6 class="card-title gamename text-over">{{item.game.name}}</h6>
 									</div>
 									<a href="#"
 										@click.prevent="gotogamne(item.game.name)"></a>
@@ -32,7 +31,7 @@
 
 						<div class="col-3"
 								v-for="item in selectdata" :key="item._id" v-if="selectdata.length">
-							<div class="card game">
+							<div class="card game bg-l-gray">
 									<img :src="item.box.template" class="card-img-top" alt="">
 									<div class="card-body">
 									<h6 class="card-title gamename">{{item.name}}</h6>
@@ -42,9 +41,9 @@
 							</div>
             </div>
           </div>
-					<div class="h3 text-center" v-if="!selectnull">找不到符合的遊戲</div>
-					<pages :ary="total"
-             :backone="backone"
+					<div class="h3 text-center vh-100" v-if="!selectnull">找不到符合的遊戲</div>
+					<pages 
+						 :ary="total"
 						 :gamelimit="gamelimit"
              @getdata="getdata"></pages>
       </div>
@@ -63,7 +62,6 @@ export default {
 			selectdata: [],
 			gamelimit: 10,
 			gamename: '',
-			backone: false,
 			total: 0,
 			selectnull: true,
     }
@@ -101,6 +99,7 @@ export default {
     },
     selectgame() {
 			if (this.gamename === '') return false;
+			this.total = 0;
       this.$store.dispatch('Loading', true);
 			const api = `${process.env.VUE_APP_APIPATH}/kraken/search/games?query=${this.gamename}`;
       this.$http.get(api, {
@@ -109,7 +108,6 @@ export default {
 					'Client-ID': `${process.env.VUE_APP_CUSTOMPATH}`,
 				},
 			}).then((response) => {
-				console.log(response)
 				const ary = response.data.games;
 				if (ary === null) {
 					this.selectnull = false;

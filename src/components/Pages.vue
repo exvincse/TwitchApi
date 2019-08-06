@@ -1,7 +1,7 @@
 <template>
   <div>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
+    <nav class="mt-5">
+      <ul class="pagination justify-content-center mb-0">
         <li class="page-item"
             :class="{'disabled':nowpage===1}"
             v-if="ary">

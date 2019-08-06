@@ -3,17 +3,17 @@
     <Hotgame @getname='getname'></Hotgame>
     <div class="container mt-5">
       <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
-        <label class="btn btn-outline-secondary a active"
+        <label class="btn btn-primary pointer active"
         @click.prevent="lange=''">
           <input type="radio" name="options" id="option1"
           >全部頻道
         </label>
-        <label class="btn btn-outline-secondary a"
+        <label class="btn btn-primary pointer"
         @click.prevent="lange='zh-TW'">
           <input type="radio" name="options" id="option2"
           >中文頻道
         </label>
-        <label class="btn btn-outline-secondary a"
+        <label class="btn btn-primary pointer"
         @click.prevent="lange='en'">
           <input type="radio" name="options" id="option3"
           >英文頻道
@@ -22,12 +22,17 @@
       <div class="row">
         <div class="col-lg-3 mb-3"
           v-for="item in channel" :key="item._id">
-          <div class="card h-100">
+          <div class="card h-100 border border-l-gray">
             <img :src="item.preview.large" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title text-over">{{item.channel.status}}</h5>
-              <p class="card-text" v-if="item.channel.display_name">觀看人數: {{item.viewers}}．{{item.channel.display_name}}({{item.channel.name}})</p>
-              <p class="card-text" v-else>觀看人數: {{item.viewers}}．{{item.channel.name}}</p>
+            <div class="card-body bg-l-gray p-3 text-white">
+              <h6 class="card-title text-over">{{item.channel.status}}</h6>
+              <small class="d-block text-over" v-if="item.channel.display_name">觀看人數: {{item.viewers}}．
+                <img src="../assets/img/43e848f758.webp" width="14px" height="14px" alt=""
+                  style="vertical-align:baseline;"
+                  v-if="item.channel.partner">
+                {{item.channel.display_name}}({{item.channel.name}})
+              </small>
+              <small class="d-block text-over" v-else>觀看人數: {{item.viewers}}．{{item.channel.name}}</small>
               <a class="go-channel" :href="item.channel.url" :title="item.channel.status"></a>
             </div>
           </div>
@@ -55,7 +60,7 @@ export default {
       name: '',
       lange: '',
       backone: false,
-      total: 0
+      total: 0,
     };
   },
   watch: {
@@ -66,7 +71,7 @@ export default {
     lange() {
       this.getdata();
       this.backone = !this.backone;
-    }
+    },
   },
   created() {
     this.getdata();
@@ -74,7 +79,7 @@ export default {
   methods: {
     getdata(startdata = 0) {
       this.$store.dispatch('Loading', true);
-      let api = `${process.env.VUE_APP_APIPATH}/kraken/streams/?client_id=${process.env.VUE_APP_CUSTOMPATH}&language=${this.lange}&game=${this.name}&offset=${startdata}`;
+      const api = `${process.env.VUE_APP_APIPATH}/kraken/streams/?client_id=${process.env.VUE_APP_CUSTOMPATH}&language=${this.lange}&game=${this.name}&offset=${startdata}`;
       this.$http.get(api).then((response) => {
         this.total = response.data._total;
         this.channel = response.data.streams;
@@ -87,8 +92,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-  .a{
-    cursor: pointer;
-  }
-</style>

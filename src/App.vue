@@ -11,10 +11,11 @@ export default {
   computed: {
     isLoading () {
       return this.$store.state.isLoading
-    }
-  }
-}
+    },
+  },
+};
 </script>
+
 <style lang='scss'>
 @import "./assets/all";
 </style>

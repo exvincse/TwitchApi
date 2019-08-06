@@ -31,9 +31,9 @@
             <i class="fas fa-search text-white fa-lg"></i>
           </button>
         </div>
-
       </nav>
       <router-view class="fixed-pt"></router-view>
+      <footer class="py-5 mt-4 mb-0 bg-primary text-center text-white h6">以上均為學習用途</footer>
     </div>
   </div>
 </template>

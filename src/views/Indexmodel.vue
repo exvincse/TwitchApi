@@ -16,7 +16,7 @@
           </div>
         </div>
 
-        <div class="input-group mx-auto d-none search" style="width:70%">
+        <div class="input-group mx-auto search" style="width:70%">
           <input type="text" class="form-control form-control-sm rounded-0" placeholder="請輸入實況主名稱"
             v-model="name"
             @keyup.enter="liveselect()">
@@ -57,7 +57,7 @@ export default {
       this.name = '';
     },
     slider() {
-      $('.search').toggleClass('d-flex');
+      $('.search').toggleClass('select-flex');
     }
   },
 }

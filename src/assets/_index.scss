@@ -47,3 +47,12 @@
        min-height: 223px;
     }
 }
+.search{
+    display: none;
+}
+.select-flex{
+    display: flex;
+    @include media-breakpoint-up(lg) { 
+        display: none;
+    }
+  }

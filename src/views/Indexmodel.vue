@@ -67,13 +67,5 @@ export default {
    background-image:url('../assets/img/bg.jpg');
    min-height: 100vh;
 }
-.navbar{
-  position: fixed;
-  width: 100%;
-  z-index: 3333;
-}
-.fixed-pt{
-  padding-top: 60px;
-}
 </style>
 

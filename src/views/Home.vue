@@ -39,6 +39,7 @@
         </div>
       </div>
     </div>
+    <div class="text-center text-white h4 my-5" v-if="total === 0">無任何直播</div>
     <pages :ary="total"
            :backone="backone"
            @getdata="getdata"></pages>

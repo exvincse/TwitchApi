@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import Hotgame from '../components/Hotgame';
-import pages from '../components/Pages';
+import Hotgame from '../components/Hotgame.vue';
+import pages from '../components/Pages.vue';
 
 export default {
   components: {

@@ -17,29 +17,33 @@
 									</div>
 								</div>
 							</div>
-            <div class="col-lg-3 col-6 mb-3"
-								v-for="item in totalgame" :key="item._id" v-if="!selectdata.length && selectnull">
-							<div class="card game bg-l-gray">
-									<img :src="item.game.box.template" class="card-img-top" alt="">
-									<div class="card-body">
-									<h6 class="card-title gamename text-over">{{item.game.name}}</h6>
+							<template v-if="!selectdata.length && selectnull">
+								<div class="col-lg-3 col-6 mb-3"
+									v-for="item in totalgame" :key="item._id">
+									<div class="card game bg-l-gray">
+											<img :src="item.game.box.template" class="card-img-top" alt="">
+											<div class="card-body">
+											<h6 class="card-title gamename text-over">{{item.game.name}}</h6>
+											</div>
+											<a href="#"
+												@click.prevent="gotogamne(item.game.name)"></a>
 									</div>
-									<a href="#"
-										@click.prevent="gotogamne(item.game.name)"></a>
-							</div>
-            </div>
+								</div>
+							</template>
 
-						<div class="col-3"
-								v-for="item in selectdata" :key="item._id" v-if="selectdata.length">
-							<div class="card game bg-l-gray">
-									<img :src="item.box.template" class="card-img-top" alt="">
-									<div class="card-body">
-									<h6 class="card-title gamename">{{item.name}}</h6>
+							<template v-if="selectdata.length">
+								<div class="col-lg-3 col-6 mb-3"
+										v-for="item in selectdata" :key="item._id">
+									<div class="card game bg-l-gray">
+											<img :src="item.box.template" class="card-img-top" alt="">
+											<div class="card-body">
+											<h6 class="card-title gamename">{{item.name}}</h6>
+											</div>
+											<a href="#"
+												@click.prevent="gotogamne(item.name)"></a>
 									</div>
-									<a href="#"
-										@click.prevent="gotogamne(item.name)"></a>
-							</div>
-            </div>
+								</div>
+							</template>
           </div>
 					<div class="h3 text-center vh-100" v-if="!selectnull">找不到符合的遊戲</div>
 					<pages 
@@ -81,8 +85,7 @@ export default {
 				}).then((response) => {
 					const ary = response.data.top;
 						ary.forEach((item) => {
-							item.game.box.template = item.game.box.template.replace('{width}', '200');
-							item.game.box.template = item.game.box.template.replace('{height}', '250');
+							item.game.box.template = item.game.box.template.replace('{width}', '200').replace('{height}', '250');
 						});
 					this.totalgame = ary;
 					this.total = response.data._total;
@@ -118,8 +121,7 @@ export default {
 					this.selectnull = true;
 				}
         ary.forEach((item) => {
-          item.box.template = item.box.template.replace('{width}', '200');
-          item.box.template = item.box.template.replace('{height}', '300');
+					item.box.template = item.box.template.replace('{width}', '200').replace('{height}', '250');
 				});
 				this.selectdata = ary;
         this.$store.dispatch('Loading', false);

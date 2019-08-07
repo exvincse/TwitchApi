@@ -40,3 +40,10 @@
 .pointer{
     cursor: pointer;
 }
+
+.game-pic{
+    height: auto;
+    @include media-breakpoint-up(lg) { 
+       min-height: 223px;
+    }
+}

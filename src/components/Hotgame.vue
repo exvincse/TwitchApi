@@ -24,14 +24,14 @@
         </div>
 
         <div class="col-lg-2 col-6"
-          v-for="item in topdata" :key="item.id">
+          v-for="item in ganmedata" :key="item._id">
           <div class="card game border-l-gray">
-            <img :src="item.box_art_url" class="card-img-top" alt="">
+            <img :src="item.game.box.template" class="card-img-top" alt="">
             <div class="card-body bg-l-gray text-white text-center">
-              <div class="card-title gamename">{{item.name}}</div>
+              <div class="card-title gamename">{{item.game.name}}</div>
             </div>
-            <a href="#" :title="item.name"
-             @click.prevent="Filterchannel(item.name)"></a>
+            <a href="#" :title="item.game.name"
+             @click.prevent="Filterchannel(item.game.name)"></a>
           </div>
         </div>
       </div>
@@ -39,31 +39,16 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
-  data() {
-    return {
-      topdata: [],
-    };
-  },
   created() {
-    this.getgame();
+    this.getdata();
+  },
+  computed: {
+    ...mapGetters('Mgame', ['ganmedata']),
   },
   methods: {
-    getgame() {
-      const api = `${process.env.VUE_APP_APIPATH}/helix/games/top`;
-      this.$http.get(api, {
-        headers: {
-          'Accept': 'application/vnd.twitchtv.v5+json',
-          'Client-ID': `${process.env.VUE_APP_CUSTOMPATH}`,
-        },
-      }).then((response) => {
-        const ary = response.data.data;
-        ary.forEach((item) => {
-          item.box_art_url = item.box_art_url.replace('{width}', '200').replace('{height}', '250');
-        });
-        this.topdata = ary;
-      });
-    },
+    ...mapActions('Mgame', ['getdata']),
     Filterchannel(name) {
       this.$emit('getname', name);
     },

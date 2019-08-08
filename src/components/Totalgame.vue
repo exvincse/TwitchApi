@@ -11,7 +11,7 @@
 												@keyup.enter="selectgame()">
 											<div class="input-group-append">
 												<a href="#" class="btn btn-primary"
-													 @click.prevent="selectgame()">搜尋</a>
+													@click.prevent="selectgame()">搜尋</a>
 											</div>
 										</div>
 									</div>
@@ -19,7 +19,7 @@
 							</div>
 							<template v-if="!selectdata.length && selectnull">
 								<div class="col-lg-3 col-6 mb-3"
-									v-for="item in totalgame" :key="item._id">
+									v-for="item in ganmedata" :key="item._id">
 									<div class="card game bg-l-gray">
 											<img :src="item.game.box.template" class="card-img-top" alt="">
 											<div class="card-body">
@@ -46,23 +46,22 @@
 							</template>
           </div>
 					<div class="h3 text-center vh-100" v-if="!selectnull">找不到符合的遊戲</div>
-					<pages 
-						 :ary="total"
-						 :gamelimit="gamelimit"
-             @getdata="getdata"></pages>
+					<pages :ary="total"
+									:gamelimit="gamelimit"
+								@getdata="getdata"></pages>
       </div>
     </div>
 </template>
 
 <script>
 import pages from '../components/Pages';
+import { mapGetters } from 'vuex';
 export default {
 	components: {
     pages,
   },
   data() {
     return {
-			totalgame: [],
 			selectdata: [],
 			gamelimit: 10,
 			gamename: '',
@@ -73,24 +72,14 @@ export default {
   created() {
     this.getdata();
   },
+	computed: {
+		...mapGetters('Mgame', ['ganmedata']),
+	},
   methods: {
     getdata(startdata = 0) {
-			this.$store.dispatch('Loading', true);
-			const api = `${process.env.VUE_APP_APIPATH}/kraken/games/top?offset=${startdata}`;
-			 this.$http.get(api, {
-					headers: {
-						'Accept': 'application/vnd.twitchtv.v5+json',
-						'Client-ID':`${process.env.VUE_APP_CUSTOMPATH}`,
-					},
-				}).then((response) => {
-					const ary = response.data.top;
-						ary.forEach((item) => {
-							item.game.box.template = item.game.box.template.replace('{width}', '200').replace('{height}', '250');
-						});
-					this.totalgame = ary;
-					this.total = response.data._total;
-					this.$store.dispatch('Loading', false);
-				});
+			this.$store.dispatch('Mgame/getdata', startdata).then(() => {
+				this.total = this.$store.state.Mgame.total;
+			});
     },
     gotogamne(name) {
       this.$router.push({

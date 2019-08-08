@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import Mchannel from './channel';
+import Mgame from './game';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -18,4 +21,8 @@ export default new Vuex.Store({
       state.isLoading = payload;
     },
   },
+  modules: {
+    Mchannel,
+    Mgame,
+  }
 });

@@ -21,7 +21,7 @@
       </div>
       <div class="row">
         <div class="col-lg-3 mb-3"
-          v-for="item in channel" :key="item._id">
+          v-for="item in channeldata" :key="item._id">
           <div class="card h-100 border border-l-gray">
             <img :src="item.preview.large" class="card-img-top" alt="">
             <div class="card-body bg-l-gray p-3 text-white">
@@ -49,6 +49,7 @@
 <script>
 import Hotgame from '../components/Hotgame.vue';
 import pages from '../components/Pages.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -57,7 +58,6 @@ export default {
   },
   data() {
     return {
-      channel: [],
       name: '',
       lange: '',
       backone: false,
@@ -77,14 +77,15 @@ export default {
   created() {
     this.getdata();
   },
+  computed: {
+    ...mapGetters('Mchannel', ['channeldata']),
+  },
   methods: {
     getdata(startdata = 0) {
-      this.$store.dispatch('Loading', true);
-      const api = `${process.env.VUE_APP_APIPATH}/kraken/streams/?client_id=${process.env.VUE_APP_CUSTOMPATH}&language=${this.lange}&game=${this.name}&offset=${startdata}`;
-      this.$http.get(api).then((response) => {
-        this.total = response.data._total;
-        this.channel = response.data.streams;
-        this.$store.dispatch('Loading', false);
+      let lange = this.lange;
+      let name = this.name;
+      this.$store.dispatch('Mchannel/getdata', { lange, name, startdata }).then(() => {
+        this.total = this.$store.state.Mchannel.total;
       });
     },
     getname(get) {

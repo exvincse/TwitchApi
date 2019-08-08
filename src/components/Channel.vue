@@ -21,7 +21,7 @@
         </div>
       <div class="row">
         <div class="col-lg-3 mb-3"
-          v-for="item in gamedata" :key="item._id">
+          v-for="item in channeldata" :key="item._id">
           <div class="card border-l-gray">
             <img :src="item.preview.medium" class="card-img-top" alt="">
             <div class="card-body bg-l-gray">
@@ -48,13 +48,14 @@
 
 <script>
 import pages from '../components/Pages';
+import { mapGetters } from 'vuex';
+
 export default {
   components: {
     pages,
   },
   data() {
     return {
-      gamedata: [],
       lange: '',
       backone: false,
       total: 0,
@@ -69,14 +70,15 @@ export default {
       this.backone = !this.backone;
     }
   },
+  computed: {
+    ...mapGetters('Mchannel', ['channeldata']),
+  },
   methods: {
     getdata(startdata = 0) {
-      this.$store.dispatch('Loading', true);
-      const api = `${process.env.VUE_APP_APIPATH}/kraken/streams/?client_id=${process.env.VUE_APP_CUSTOMPATH}&language=${this.lange}&game=${this.$route.query.name}&offset=${startdata}`;
-      this.$http.get(api).then((response) => {
-        this.total = response.data._total;
-        this.gamedata = response.data.streams;
-        this.$store.dispatch('Loading', false);
+      let lange = this.lange;
+      let name = this.$route.query.name;
+      this.$store.dispatch('Mchannel/getdata', { lange, name, startdata }).then(() => {
+        this.total = this.$store.state.Mchannel.total;
       });
     },
   },

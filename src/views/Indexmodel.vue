@@ -28,6 +28,8 @@
                 @click.prevent="liveselect()">查詢</button>
           </div>
         </div>
+
+        
         <div class="input-group w-60 d-lg-none d-flex">
           <input type="text" class="form-control rounded-0" placeholder="請輸入實況主名稱"
             v-model="name"

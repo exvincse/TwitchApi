@@ -7,11 +7,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   computed: {
-    isLoading () {
-      return this.$store.state.isLoading
-    },
+    ...mapGetters(['isLoading']),
   },
 };
 </script>

@@ -41,13 +41,14 @@
     cursor: pointer;
 }
 
-.search{
-    display: none;
+.navbar-expand-lg .search{
+    display: none !important;
 }
-.select-flex{
-    display: flex;
+.navbar-expand-lg .select-flex{
+    display: flex !important;
+    flex-direction: row;
     @include media-breakpoint-up(lg) { 
-        display: none;
+        display: none !important;
     }
   }
   .navbar{
@@ -58,3 +59,42 @@
   .fixed-pt{
     padding-top: 60px;
   }
+
+  .navbar-light .navbar-nav .l-border {
+    color: $white;
+    position: relative;
+  
+    &::after {
+      content: "";
+      width: 0%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-bottom: 3px solid $Lorange;
+      transition: all 0.3s;
+      z-index: -1;
+    }
+    &:active {
+        &::after {
+          width: 100%;
+          z-index: 100;
+        }
+    }
+    @include media-breakpoint-up(lg) { 
+        &:hover {
+          color: $white;
+          &::after {
+            width: 100%;
+            z-index: 100;
+          }
+        }
+    }
+}
+.navbar-light .navbar-nav .l-active {
+    color: $Lorange !important;
+  
+    &::after {
+      width: 100%;
+      z-index: 100;
+    }
+}

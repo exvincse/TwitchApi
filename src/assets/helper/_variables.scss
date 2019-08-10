@@ -45,6 +45,7 @@ $green:   #28a745 !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 //---------------------------
+$Lorange:	#ff8040 !default;
 $l-gray: #333333 !default;
 $colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
@@ -154,6 +155,7 @@ $sizes: map-merge(
   (
     25: 25%,
     50: 50%,
+    60: 60%,
     75: 75%,
     100: 100%,
     auto: auto

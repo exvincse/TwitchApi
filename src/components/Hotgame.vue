@@ -6,7 +6,7 @@
             <img src="../assets/img/moregame.jpg" class="card-img-top game-pic" 
             width='200' height="250" alt="">
             <div class="card-body">
-              <span class="card-title text-white">更多遊戲</span>
+              <div class="card-title text-white">更多遊戲</div>
             </div>
             <router-link class="gamename"
                     to="/game"></router-link>
@@ -18,7 +18,7 @@
             <img src="../assets/img/allgame.jpg" class="card-img-top game-pic" 
               height="250" alt="">
             <div class="card-body">
-              <span class="card-title text-white">全部遊戲頻道</span>
+              <div class="card-title text-white">全部遊戲頻道</div>
             </div>
             <a href="#" title="全部遊戲"
               @click.prevent="Filterchannel('')"></a>

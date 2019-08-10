@@ -20,7 +20,7 @@
         </label>
       </div>
       <div class="row">
-        <div class="col-lg-3 mb-3"
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-3"
           v-for="item in channeldata" :key="item._id">
           <div class="card h-100 border border-l-gray">
             <img :src="item.preview.large" class="card-img-top" alt="">

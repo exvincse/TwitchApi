@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container text-white">
-      <div class="h3 text-center">已搜尋"{{this.$route.query.name}}"</div>
+      <div class="h3 text-center" style="overflow:hidden;">已搜尋"{{this.$route.query.name}}"</div>
       <div v-if='masterdata.length'>
         <div class="row">
           <div class="col-lg-3 col-6 mb-3"

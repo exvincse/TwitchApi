@@ -96,8 +96,17 @@ export default {
 </script>
 <style lang="scss" scoped>
 .bg-cover{
-   background-image:url('../assets/img/bg.jpg');
-   min-height: 100vh;
+  background-attachment: scroll;
+  background-image: none;
+  background-color: black;
+   @media (min-width: 992px) { 
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: transparent;
+    background-image:url('../assets/img/bg.jpg');
+    min-height: 100vh;
+   }
 }
 </style>
 

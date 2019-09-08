@@ -7,6 +7,7 @@ module.exports = {
     },
     "extends": [
         "eslint:recommended",
+        "@vue/airbnb",
         "plugin:vue/essential"
     ],
     "globals": {
@@ -21,12 +22,12 @@ module.exports = {
         "vue"
     ],
     "rules": {
+        "no-tabs": 0,
         "max-len": [
             "error",
                 {
                 "code": 300
                 }
             ],
-            "no-tabs": "off"
     }
 };

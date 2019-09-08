@@ -47,9 +47,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Hotgame from '../components/Hotgame.vue';
 import pages from '../components/Pages.vue';
-import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -82,9 +82,11 @@ export default {
   },
   methods: {
     getdata(startdata = 0) {
-      let lange = this.lange;
-      let name = this.name;
-      this.$store.dispatch('Mchannel/getdata', { lange, name, startdata }).then(() => {
+      this.$store.dispatch('Mchannel/getdata', {
+        lange: this.lange,
+        name: this.name,
+        startdata,
+      }).then(() => {
         this.total = this.$store.state.Mchannel.total;
       });
     },

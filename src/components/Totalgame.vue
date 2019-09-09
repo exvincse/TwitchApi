@@ -6,7 +6,7 @@
 								<div class="row justify-content-center">
 									<div class="col-lg-6">
 										<div class="input-group mb-3">
-											<input type="text" class="form-control" placeholder="請輸入遊戲名稱" 
+											<input type="text" class="form-control" placeholder="請輸入遊戲名稱"
 												v-model="gamename"
 												@keyup.enter="selectgame()">
 											<div class="input-group-append">
@@ -54,67 +54,67 @@
 </template>
 
 <script>
-import pages from '../components/Pages';
 import { mapGetters } from 'vuex';
+import pages from './Pages.vue';
+
 export default {
-	components: {
+  components: {
     pages,
   },
   data() {
     return {
-			selectdata: [],
-			gamelimit: 10,
-			gamename: '',
-			total: 0,
-			selectnull: true,
-    }
+      selectdata: [],
+      gamelimit: 10,
+      gamename: '',
+      total: 0,
+      selectnull: true,
+    };
   },
   created() {
     this.getdata();
   },
-	computed: {
-		...mapGetters('Mgame', ['ganmedata']),
-	},
+  computed: {
+    ...mapGetters('Mgame', ['ganmedata']),
+  },
   methods: {
     getdata(startdata = 0) {
-			this.$store.dispatch('Mgame/getdata', startdata).then(() => {
-				this.total = this.$store.state.Mgame.total;
-			});
+      this.$store.dispatch('Mgame/getdata', startdata).then(() => {
+        this.total = this.$store.state.Mgame.total;
+      });
     },
     gotogamne(name) {
       this.$router.push({
         path: 'game/selectgame',
         query: {
-					name,
-				},
+          name,
+        },
       });
     },
     selectgame() {
-			if (this.gamename === '') return false;
-			this.total = 0;
+      if (this.gamename === '') return false;
+      this.total = 0;
       this.$store.dispatch('Loading', true);
-			const api = `${process.env.VUE_APP_APIPATH}/kraken/search/games?query=${this.gamename}`;
+      const api = `${process.env.VUE_APP_APIPATH}/kraken/search/games?query=${this.gamename}`;
       this.$http.get(api, {
-				headers: {
-					'Accept': 'application/vnd.twitchtv.v5+json',
-					'Client-ID': `${process.env.VUE_APP_CUSTOMPATH}`,
-				},
-			}).then((response) => {
-				const ary = response.data.games;
-				if (ary === null) {
-					this.selectnull = false;
-					this.selectdata = [];
-					this.$store.dispatch('Loading', false);
-					return false;
-				} else {
-					this.selectnull = true;
-				}
-        ary.forEach((item) => {
-					item.box.template = item.box.template.replace('{width}', '200').replace('{height}', '250');
-				});
-				this.selectdata = ary;
+        headers: {
+          Accept: 'application/vnd.twitchtv.v5+json',
+          'Client-ID': `${process.env.VUE_APP_CUSTOMPATH}`,
+        },
+      }).then((response) => {
+        const ary = response.data.games;
+        if (ary === null) {
+          this.selectnull = false;
+          this.selectdata = [];
+          this.$store.dispatch('Loading', false);
+          return false;
+        }
+        this.selectnull = true;
+        ary.forEach(item => item.box.template.replace('{width}', '200').replace('{height}', '250'));
+        this.selectdata = ary;
         this.$store.dispatch('Loading', false);
+        return true;
       });
+      return true;
     },
   },
 };

@@ -28,6 +28,8 @@ module.exports = {
                 {
                 "code": 300
                 }
-            ],
+        ],
+        "dot-notation": 0,
+        "no-param-reassign": 0,
     }
 };

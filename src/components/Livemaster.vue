@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-lg-3 col-6 mb-3"
             v-for="item in masterdata" :key="item._id">
-            <div class="card border-l-gray">
+            <div class="card" style="border:none;">
               <img :src="item.logo" class="card-img-top" alt="">
               <div class="card-body bg-l-gray">
                 <h5 v-if="item.display_name">{{item.display_name}}({{item.name}})</h5>
@@ -26,9 +26,10 @@
 </template>
 
 <script>
-import pages from '../components/Pages';
+import pages from './Pages.vue';
+
 export default {
-  components:{
+  components: {
     pages,
   },
   data() {
@@ -36,16 +37,16 @@ export default {
       masterdata: [],
       total: 0,
       backone: false,
-    }
+    };
   },
   created() {
     this.livemaster();
   },
   watch: {
-    '$route'(to, from) {
+    $route() {
       this.livemaster();
       this.backone = !this.backone;
-    }
+    },
   },
   methods: {
     livemaster(stardata = 0) {
@@ -53,16 +54,17 @@ export default {
       this.$store.dispatch('Loading', true);
       const api = `${process.env.VUE_APP_APIPATH}/kraken/search/channels?query=${this.$route.query.name}&offset=${stardata}`;
       this.$http.get(api, {
-				headers: {
-					'Accept': 'application/vnd.twitchtv.v5+json',
-					'Client-ID': `${process.env.VUE_APP_CUSTOMPATH}`,
-				},
-			}).then((response) => {
-        this.total = response.data._total;
+        headers: {
+          Accept: 'application/vnd.twitchtv.v5+json',
+          'Client-ID': `${process.env.VUE_APP_CUSTOMPATH}`,
+        },
+      }).then((response) => {
+        this.total = response.data['_total'];
         this.masterdata = response.data.channels;
         this.$store.dispatch('Loading', false);
       });
-    }
+      return true;
+    },
   },
-}
+};
 </script>

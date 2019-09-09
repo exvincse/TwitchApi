@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-lg-3 mb-3"
           v-for="item in channeldata" :key="item._id">
-          <div class="card border-l-gray">
+          <div class="card" style="border:none;">
             <img :src="item.preview.medium" class="card-img-top" alt="">
             <div class="card-body bg-l-gray">
               <h6 class="card-title text-over">{{item.channel.status}}</h6>
@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import pages from '../components/Pages';
 import { mapGetters } from 'vuex';
+import pages from './Pages.vue';
 
 export default {
   components: {
@@ -68,16 +68,18 @@ export default {
     lange() {
       this.getdata();
       this.backone = !this.backone;
-    }
+    },
   },
   computed: {
     ...mapGetters('Mchannel', ['channeldata']),
   },
   methods: {
     getdata(startdata = 0) {
-      let lange = this.lange;
-      let name = this.$route.query.name;
-      this.$store.dispatch('Mchannel/getdata', { lange, name, startdata }).then(() => {
+      this.$store.dispatch('Mchannel/getdata', {
+        lange: this.lange,
+        name: this.$route.query.name,
+        startdata,
+      }).then(() => {
         this.total = this.$store.state.Mchannel.total;
       });
     },

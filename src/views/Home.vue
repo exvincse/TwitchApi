@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-xl-3 col-lg-4 col-md-6 mb-3"
           v-for="item in channeldata" :key="item._id">
-          <div class="card h-100 border border-l-gray">
+          <div class="card h-100" style="border:none">
             <img :src="item.preview.large" class="card-img-top" alt="">
             <div class="card-body bg-l-gray p-3 text-white">
               <h6 class="card-title text-over">{{item.channel.status}}</h6>

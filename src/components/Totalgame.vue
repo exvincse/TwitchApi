@@ -91,6 +91,7 @@ export default {
       });
     },
     selectgame() {
+      this.gamename = this.gamename.trim();
       if (this.gamename === '') return false;
       this.total = 0;
       this.$store.dispatch('Loading', true);

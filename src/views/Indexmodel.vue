@@ -28,8 +28,6 @@
                 @click.prevent="liveselect()">查詢</button>
           </div>
         </div>
-
-        
         <div class="input-group w-60 d-lg-none d-flex">
           <input type="text" class="form-control rounded-0" placeholder="請輸入實況主名稱"
             v-model="name"
@@ -67,39 +65,42 @@
 </template>
 
 <script>
-import $ from 'jquery'
+import $ from 'jquery';
+
 export default {
   data() {
     return {
       name: '',
-    }
+    };
   },
   methods: {
     liveselect() {
+      this.name = this.name.trim();
       if (this.name === '') return false;
       this.$router.push({
         path: '/master',
-        query:{
-          name:this.name,
-        }
-      })
+        query: {
+          name: this.name,
+        },
+      });
       this.name = '';
+      return true;
     },
     slider() {
       $('.search').toggleClass('select-flex');
     },
-    DropHide () {
-      $('.navbar-toggler').click()
+    DropHide() {
+      $('.navbar-toggler').click();
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .bg-cover{
   background-attachment: scroll;
   background-image: none;
   background-color: black;
-   @media (min-width: 992px) { 
+   @media (min-width: 992px) {
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -109,4 +110,3 @@ export default {
    }
 }
 </style>
-

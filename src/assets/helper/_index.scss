@@ -42,15 +42,18 @@
 }
 
 .navbar-expand-lg .search{
-    display: none !important;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height .7s ease-in;
 }
 .navbar-expand-lg .select-flex{
-    display: flex !important;
-    flex-direction: row;
-    @include media-breakpoint-up(lg) { 
-        display: none !important;
-    }
-  }
+  max-height: 500px;
+}
+.navbar-toggler{
+  outline: none;
+  border: none;
+}
+
   .navbar{
     position: fixed;
     width: 100%;

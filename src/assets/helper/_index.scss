@@ -42,9 +42,14 @@
 }
 
 .navbar-expand-lg .search{
+    display: none !important;
     max-height: 0px;
     overflow: hidden;
     transition: max-height .7s ease-in;
+    @media (max-width:768px) {
+      display: flex !important;
+      flex-direction: column;
+    }
 }
 .navbar-expand-lg .select-flex{
   max-height: 500px;

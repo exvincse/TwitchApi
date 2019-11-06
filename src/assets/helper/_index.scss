@@ -1,108 +1,177 @@
-.bg-cover{
-      background-position: center;
-      background-size: cover;
-      background-attachment: fixed;
+html,body{
+  width: 100%;
 }
-.topgame{
-    overflow-x:scroll;
-    overflow-y:hidden;
-	white-space: nowrap;
-    text-overflow: ellipsis;
-    .gamename{
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+ul{
+  list-style: none;
+  padding: 0;
 }
-.game{
-    position: relative;
-    a{
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
+.l-nav .search{
+  max-height: 0px;
+  overflow: hidden;
+  background: $primary;
+  transition: max-height .5s;
+  @media (max-width:768px) {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    display: flex !important;
+    flex-direction: column;
+  }
 }
-.text-over{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    height: 20px;
+.l-nav .select-flex{
+  max-height: 0px;
+  @media (max-width:768px) {
+    max-height: 500px;
+  }
 }
-.go-channel{
+.l-nav{
+  position: fixed;
+  width: 100%;
+  z-index: 3333;
+  display: flex;
+  padding:10px;
+  align-items: center;
+  @media (max-width:768px) {
+    justify-content: space-between;
+  }
+}
+.l-nav .l-border {
+  color: $white;
+  position: relative;
+  &::after {
+    content: "";
+    width: 0%;
     position: absolute;
-    top: 0;
     bottom: 0;
     left: 0;
+    border-bottom: 3px solid $Lorange;
+    transition: all 0.3s;
+    z-index: -1;
+  }
+  @media (min-width:768px)  { 
+    &:hover {
+      color: $white;
+      &::after {
+        width: 100%;
+        z-index: 100;
+      }
+    }
+  }
+}
+.l-nav .l-active {
+  color: $Lorange !important;
+  &::after {
+    width: 100%;
+    z-index: 100;
+  }
+}
+.desktop-img{
+  display: block;
+  @media (max-width:768px) {
+    display: none;
+  }
+}
+.mobile-img{
+  display: none;
+  @media (max-width:768px) {
+    display: block;
+  }
+}
+.menu-list{
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  @media (max-width:768px) {
+    flex: 0 1 auto;
+  }
+  ul{
+    @media (max-width:768px) {
+      display: none;
+    }
+    color: $white;
+    display: flex;
+    margin-bottom: 0;
+    .menu-list-item{
+      white-space: nowrap;
+    }
+  }
+}
+.live-search{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  input{
+    flex: 1 0 auto;
+    padding: 5px;
+  }
+  .btn{
+    width: 60px;
+  }
+}
+.mobile-menu-bar{
+  display: none;
+  @media (max-width:768px) {
+    display: block;
+  }
+}
+.bg-cover{
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.topgame{
+  overflow-x:scroll;
+  overflow-y:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  .gamename{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+  }
+}
+.game{
+  position: relative;
+  a{
+    position: absolute;
+    top: 0;
+    left: 0;
     right: 0;
+    bottom: 0;
+  }
+}
+.text-over{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 20px;
+}
+.go-channel{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .pointer{
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.navbar-expand-lg .search{
-    display: none !important;
-    max-height: 0px;
-    overflow: hidden;
-    transition: max-height .7s ease-in;
-    @media (max-width:768px) {
-      display: flex !important;
-      flex-direction: column;
-    }
+
+.nav-logo{
+  flex: 0 1 auto;
 }
-.navbar-expand-lg .select-flex{
-  max-height: 500px;
-}
+
+
 .navbar-toggler{
   outline: none;
   border: none;
 }
 
-  .navbar{
-    position: fixed;
-    width: 100%;
-    z-index: 3333;
-  }
-  .fixed-pt{
-    padding-top: 60px;
-  }
 
-  .navbar-light .navbar-nav .l-border {
-    color: $white;
-    position: relative;
-  
-    &::after {
-      content: "";
-      width: 0%;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      border-bottom: 3px solid $Lorange;
-      transition: all 0.3s;
-      z-index: -1;
-    }
-    &:active {
-        &::after {
-          width: 100%;
-          z-index: 100;
-        }
-    }
-    @include media-breakpoint-up(lg) { 
-        &:hover {
-          color: $white;
-          &::after {
-            width: 100%;
-            z-index: 100;
-          }
-        }
-    }
-}
-.navbar-light .navbar-nav .l-active {
-    color: $Lorange !important;
-  
-    &::after {
-      width: 100%;
-      z-index: 100;
-    }
+.fixed-pt{
+  padding-top: 60px;
 }

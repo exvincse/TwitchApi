@@ -16,6 +16,25 @@ Vue.use(Vuex);
 Vue.component('Loading', Loading);
 Vue.config.productionTip = false;
 
+axios.interceptors.request.use(
+  (config) => {
+    store.dispatch('Loading', true);
+    return config;
+  },
+  (err) => {
+    store.dispatch('Loading', false);
+    return Promise.reject(err);
+  });
+axios.interceptors.response.use(
+  (config) => {
+    store.dispatch('Loading', false);
+    console.log(config)
+    return config;
+  },
+  (err) => {
+    store.dispatch('Loading', false);
+    return Promise.reject(err);
+  });
 new Vue({
   router,
   store,

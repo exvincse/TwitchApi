@@ -74,21 +74,20 @@ export default {
       this.backone = !this.backone;
     },
   },
-  created() {
-    this.getdata();
+  async created() {
+    await this.getdata();
   },
   computed: {
     ...mapGetters('Mchannel', ['channeldata']),
   },
   methods: {
-    getdata(startdata = 0) {
-      this.$store.dispatch('Mchannel/getdata', {
+    async getdata(startdata = 0) {
+      await this.$store.dispatch('Mchannel/getdata', {
         lange: this.lange,
         name: this.name,
         startdata,
-      }).then(() => {
-        this.total = this.$store.state.Mchannel.total;
-      });
+      })
+      this.total = this.$store.state.Mchannel.total;
     },
     getname(get) {
       this.name = get;

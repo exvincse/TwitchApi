@@ -70,17 +70,16 @@ export default {
       selectnull: true,
     };
   },
-  created() {
-    this.getdata();
+  async created() {
+    await this.getdata();
   },
   computed: {
     ...mapGetters('Mgame', ['ganmedata']),
   },
   methods: {
-    getdata(startdata = 0) {
-      this.$store.dispatch('Mgame/getdata', startdata).then(() => {
-        this.total = this.$store.state.Mgame.total;
-      });
+    async getdata(startdata = 0) {
+      await this.$store.dispatch('Mgame/getdata', startdata)
+      this.total = this.$store.state.Mgame.total;
     },
     gotogamne(name) {
       this.$router.push({
@@ -90,31 +89,26 @@ export default {
         },
       });
     },
-    selectgame() {
+    async selectgame() {
       this.gamename = this.gamename.trim();
       if (this.gamename === '') return false;
       this.total = 0;
-      this.$store.dispatch('Loading', true);
       const api = `${process.env.VUE_APP_APIPATH}/kraken/search/games?query=${this.gamename}`;
-      this.$http.get(api, {
+      let res = await this.$http.get(api, {
         headers: {
           Accept: 'application/vnd.twitchtv.v5+json',
           'Client-ID': `${process.env.VUE_APP_CUSTOMPATH}`,
         },
-      }).then((response) => {
-        const ary = response.data.games;
-        if (ary === null) {
-          this.selectnull = false;
-          this.selectdata = [];
-          this.$store.dispatch('Loading', false);
-          return false;
-        }
-        this.selectnull = true;
-        ary.forEach(item => item.box.template.replace('{width}', '200').replace('{height}', '250'));
-        this.selectdata = ary;
-        this.$store.dispatch('Loading', false);
-        return true;
-      });
+      })
+      const ary = res.data.games;
+      if (ary === null) {
+        this.selectnull = false;
+        this.selectdata = [];
+        return false;
+      }
+      this.selectnull = true;
+      ary.forEach(item => item.box.template.replace('{width}', '200').replace('{height}', '250'));
+      this.selectdata = ary;
       return true;
     },
   },

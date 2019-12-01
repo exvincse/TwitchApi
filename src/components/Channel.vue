@@ -61,8 +61,8 @@ export default {
       total: 0,
     };
   },
-  created() {
-    this.getdata();
+  async created() {
+    await this.getdata();
   },
   watch: {
     lange() {
@@ -74,14 +74,13 @@ export default {
     ...mapGetters('Mchannel', ['channeldata']),
   },
   methods: {
-    getdata(startdata = 0) {
-      this.$store.dispatch('Mchannel/getdata', {
+    async getdata(startdata = 0) {
+      await this.$store.dispatch('Mchannel/getdata', {
         lange: this.lange,
         name: this.$route.query.name,
         startdata,
-      }).then(() => {
-        this.total = this.$store.state.Mchannel.total;
-      });
+      })
+      this.total = this.$store.state.Mchannel.total;
     },
   },
 };

@@ -39,8 +39,8 @@ export default {
       backone: false,
     };
   },
-  created() {
-    this.livemaster();
+  async created() {
+    await this.livemaster();
   },
   watch: {
     $route() {
@@ -49,20 +49,17 @@ export default {
     },
   },
   methods: {
-    livemaster(stardata = 0) {
+    async livemaster(stardata = 0) {
       if (this.$route.query.name === '') return false;
-      this.$store.dispatch('Loading', true);
       const api = `${process.env.VUE_APP_APIPATH}/kraken/search/channels?query=${this.$route.query.name}&offset=${stardata}`;
-      this.$http.get(api, {
+      let res = await this.$http.get(api, {
         headers: {
           Accept: 'application/vnd.twitchtv.v5+json',
           'Client-ID': `${process.env.VUE_APP_CUSTOMPATH}`,
         },
-      }).then((response) => {
-        this.total = response.data['_total'];
-        this.masterdata = response.data.channels;
-        this.$store.dispatch('Loading', false);
-      });
+      })
+      this.total = res.data['_total'];
+      this.masterdata = res.data.channels;
       return true;
     },
   },

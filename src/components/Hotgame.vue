@@ -44,7 +44,7 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  created() {
+  async created() {
     this.getdata();
   },
   computed: {

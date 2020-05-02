@@ -19,7 +19,7 @@
                         <img :src="item.preview.medium" class="card-img-top" alt="">
                         <div class="card-body bg-l-gray">
                             <h6 class="card-title text-over">{{item.channel.status}}</h6>
-                            <small class="d-block text-over" v-if="item.channel.display_name">觀看人數: {{item.viewers}}．
+                            <small class="d-block text-over " v-if="item.channel.display_name">觀看人數: {{item.viewers}}．
                                 <img src="../assets/img/parner.png" width="14px" height="14px" alt="" style="vertical-align:baseline;" v-if="item.channel.partner">
                                 {{item.channel.display_name}}({{item.channel.name}})
                             </small>

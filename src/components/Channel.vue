@@ -23,7 +23,7 @@
                                 <img src="../assets/img/parner.png" width="14px" height="14px" alt="" style="vertical-align:baseline;" v-if="item.channel.partner">
                                 {{item.channel.display_name}}({{item.channel.name}})
                             </small>
-                            <small class="d-block text-over" v-else>觀看人數: {{item.viewers}}．{{item.channel.name}}</small>
+                            <div class="d-block text-over text123" v-else>觀看人數: {{item.viewers}}．{{item.channel.name}}</div>
                             <a class="go-channel" :href="item.channel.url" :title="item.channel.status"></a>
                         </div>
                     </div>
